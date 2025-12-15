@@ -46,17 +46,18 @@ Filename: "python.exe"; Parameters: "-m pip install -r requirements.txt"; Workin
 
 [Code]
 function InitializeSetup(): Boolean;
+var
+  PythonPath: String;
 begin
+  Result := True;
   // Check if Python is installed
-  if not RegQueryStringValue(HKEY_LOCAL_MACHINE, 'SOFTWARE\Python\PythonCore\3.11\InstallPath', '', Result) and
-     not RegQueryStringValue(HKEY_LOCAL_MACHINE, 'SOFTWARE\Python\PythonCore\3.10\InstallPath', '', Result) and
-     not RegQueryStringValue(HKEY_LOCAL_MACHINE, 'SOFTWARE\Python\PythonCore\3.9\InstallPath', '', Result) and
-     not RegQueryStringValue(HKEY_LOCAL_MACHINE, 'SOFTWARE\Python\PythonCore\3.8\InstallPath', '', Result) then
+  if not RegQueryStringValue(HKEY_LOCAL_MACHINE, 'SOFTWARE\Python\PythonCore\3.11\InstallPath', '', PythonPath) and
+     not RegQueryStringValue(HKEY_LOCAL_MACHINE, 'SOFTWARE\Python\PythonCore\3.10\InstallPath', '', PythonPath) and
+     not RegQueryStringValue(HKEY_LOCAL_MACHINE, 'SOFTWARE\Python\PythonCore\3.9\InstallPath', '', PythonPath) and
+     not RegQueryStringValue(HKEY_LOCAL_MACHINE, 'SOFTWARE\Python\PythonCore\3.8\InstallPath', '', PythonPath) then
   begin
     MsgBox('Python 3.8 or higher is required but was not found. Please install Python first.', mbError, MB_OK);
     Result := False;
-  end
-  else
-    Result := True;
+  end;
 end;
 
