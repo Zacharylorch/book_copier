@@ -3,6 +3,9 @@ name: Build Windows Installer
 on:
   workflow_dispatch:  # Allows manual triggering
   push:
+    branches:
+      - master
+      - main
     tags:
       - 'v*'  # Trigger on version tags
   release:
